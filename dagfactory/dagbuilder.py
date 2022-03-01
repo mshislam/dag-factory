@@ -7,7 +7,7 @@ from copy import deepcopy
 
 from airflow import DAG, configuration
 from airflow.models import Variable
-from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
+# from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
 from airflow.models import BaseOperator
 from airflow.operators.python_operator import PythonOperator, BranchPythonOperator
 from airflow.sensors.http_sensor import HttpSensor
@@ -285,13 +285,13 @@ class DagBuilder:
                     # Airflow 2.0 doesn't allow these to be passed to operator
                     del task_params["response_check_lambda"]
 
-            # KubernetesPodOperator
-            if operator_obj == KubernetesPodOperator:
-                task_params["secrets"] = (
-                    [Secret(**v) for v in task_params.get("secrets")]
-                    if task_params.get("secrets") is not None
-                    else None
-                )
+#             # KubernetesPodOperator
+#             if operator_obj == KubernetesPodOperator:
+#                 task_params["secrets"] = (
+#                     [Secret(**v) for v in task_params.get("secrets")]
+#                     if task_params.get("secrets") is not None
+#                     else None
+#                 )
 
                 task_params["ports"] = (
                     [Port(**v) for v in task_params.get("ports")]
